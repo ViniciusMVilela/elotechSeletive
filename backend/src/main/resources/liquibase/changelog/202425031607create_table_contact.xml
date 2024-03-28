@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="create-table-contact" author="ViniciusVilela">
+        <preConditions onFail="MARK_RAN" onFailMessage="Table contact already exist">
+            <not>
+                <tableExists tableName="tb_contact"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="tb_contact">
+            <column name="id" type="int">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="name_contact" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="telephone" type="varchar(11)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="person_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="tb_contact" baseColumnNames="person_id" constraintName="fk_person_id"
+                                 referencedTableName="tb_person"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+
+    <changeSet id="create-sequence-contact" author="ViniciusVilela">
+        <preConditions onFail="MARK_RAN" onFailMessage="contact sequence already exist">
+            <not>
+                <sequenceExists sequenceName="contact_sequence"/>
+            </not>
+        </preConditions>
+        <createSequence sequenceName="contact_sequence" minValue="1" startValue="1" incrementBy="1"/>
+    </changeSet>
+
+
+</databaseChangeLog>

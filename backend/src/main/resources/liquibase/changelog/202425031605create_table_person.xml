@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="create-table-person" author="ViniciusVilela">
+        <preConditions onFail="MARK_RAN" onFailMessage="Table person already exist">
+            <not>
+                <tableExists tableName="tb_person"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="tb_person">
+            <column name="id" type="int">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cpf" type="varchar(11)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="birth_date" type="date">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="create-sequence-person" author="ViniciusVilela">
+        <preConditions onFail="MARK_RAN" onFailMessage="person sequence already exist">
+            <not>
+                <sequenceExists sequenceName="person_sequence"/>
+            </not>
+        </preConditions>
+        <createSequence sequenceName="person_sequence" minValue="1" startValue="1" incrementBy="1"/>
+    </changeSet>
+
+</databaseChangeLog>

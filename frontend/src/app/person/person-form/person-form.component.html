@@ -1,0 +1,161 @@
+<h1 class="mt-4">Person</h1>
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h5 class="mt-4">
+        {{ person.id ? "Edit Person" : "Register Person" }}
+      </h5>
+    </div>
+    <div class="col">
+      <button
+        type="button"
+        class="btn btn-warning"
+        (click)="returnPersonList()"
+      >
+        Return
+      </button>
+    </div>
+  </div>
+</div>
+<hr />
+<div class="container">
+  <form #personForm="ngForm" (ngSubmit)="onSubmit()">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="alert alert-info" *ngIf="sucess == true">
+          Person created/updated sucess!
+        </div>
+        <div class="alert alert-danger" *ngIf="errors">
+          {{ errors }}
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="">Name</label>
+          <input
+            type="text"
+            class="form-control"
+            [(ngModel)]="person.name"
+            name="name"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="">CPF (only numbers)</label>
+          <input
+            type="text"
+            class="form-control"
+            [(ngModel)]="person.cpf"
+            name="cpf"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="">Birth Date (yyyy-mm-dd)</label>
+          <input
+            type="text"
+            class="form-control"
+            [(ngModel)]="person.birthDate"
+            name="birthDate"
+          />
+        </div>
+      </div>
+    </div>
+    <br />
+    <h3>Contacts</h3>
+    <div *ngFor="let contact of person.contactList; let i = index">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="">Name Contact</label>
+            <input
+              type="text"
+              class="form-control"
+              id="contactName{{ i }}"
+              [(ngModel)]="person.contactList[i].nameContact"
+              name="nameContact{{ i }}"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="">Email</label>
+            <input
+              type="text"
+              class="form-control"
+              id="contactEmail{{ i }}"
+              [(ngModel)]="person.contactList[i].email"
+              name="email{{ i }}"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="">Telephone</label>
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="person.contactList[i].telephone"
+              name="telephone"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <button
+              type="button"
+              class="btn btn-primary"
+              (click)="addContact()"
+            >
+              Other contact
+            </button>
+          </div>
+          <div class="col">
+            <!-- Botão para adicionar novo contato -->
+
+            <button
+              type="button"
+              class="btn btn-danger"
+              (click)="removeContact(i)"
+            >
+              Remove contact
+            </button>
+          </div>
+        </div>
+      </div>
+      <br />
+    </div>
+
+    <div class="row">
+      <div class="col-md-2r">
+        <button type="submit" class="btn btn-success ml-2" *ngIf="!person.id">
+          <p>Save Person</p>
+          <i class="fa-regular fa-floppy-disk"></i>
+        </button>
+
+        <button type="submit" class="btn btn-success ml-2" *ngIf="person.id">
+          <i class="fa-solid fa-rotate"></i>
+          <p>Edit person</p>
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

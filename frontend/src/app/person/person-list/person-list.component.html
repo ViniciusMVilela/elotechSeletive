@@ -1,0 +1,100 @@
+<h1 class="mt-4">Person</h1>
+<h5 class="mt-4">Person list</h5>
+<div class="contanier">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="alert alert-info" *ngIf="sucessMesage">
+        {{ sucessMesage }}
+      </div>
+      <div class="alert alert-danger" *ngIf="errorMesage">
+        {{ errorMesage }}
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-2">
+      <button class="btn btn-primary" routerLink="/person-form">
+        <i class="fa fa-plus"> New Person</i>
+      </button>
+    </div>
+  </div>
+  <br />
+  <input
+    type="text"
+    [(ngModel)]="nameFilter"
+    placeholder="Filter by name"
+    (input)="findPersonNameContains()"
+  />
+
+  <br />
+  <div class="row">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Name</th>
+          <th>CPF</th>
+          <th>Birth Date</th>
+          <th>Contact List</th>
+          <!-- <th>Email</th>
+          <th>Telephone</th> -->
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let person of persons">
+          <td>{{ person.id }}</td>
+          <td>{{ person.name }}</td>
+          <td>{{ person.cpf }}</td>
+          <td>{{ person.birthDate }}</td>
+          <td>
+            <ul>
+              <li *ngFor="let contact of person.contactList">
+                {{ contact.nameContact }}: {{ contact.email }} :
+                {{ contact.telephone }}
+              </li>
+            </ul>
+          </td>
+          <td>
+            <button
+              class="btn btn-warning"
+              routerLink="/person-form/{{ person.id }}"
+            >
+              <i class="fa fa-pencil"></i>
+            </button>
+            <button
+              class="btn btn-danger"
+              data-toggle="modal"
+              data-target="#modalDelete"
+              (click)="prepareDelet(person)"
+            >
+              <i class="fa fa-trash"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div id="modalDelete" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4>Confirm</h4>
+        </div>
+        <div class="modal-body" *ngIf="personSelect">
+          Confirm deletion {{ personSelect.name }} ?
+        </div>
+        <div class="modal-footer">
+          <button
+            class="btn btn-info"
+            (click)="deletePerson()"
+            data-dismiss="modal"
+          >
+            Confirm
+          </button>
+          <button class="btn btn-default" data-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
