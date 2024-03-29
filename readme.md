@@ -23,3 +23,20 @@ Frontend and backend run separately, to use the entire application you need to s
 to run the backend start "CrudApplication"
 
 to run the frontend, access the frontend folder and use the "ng serve" command
+
+
+#### After initialization
+use the sidebar icons to navegate the application
+
+#### main routes
+
+"http://localhost:4200/person-list" 
+load ALL people present into database  
+
+
+"http://localhost:4200/person-form"
+forms for creating a person
+
+
+"http://localhost:4200/home"
+homepage 
