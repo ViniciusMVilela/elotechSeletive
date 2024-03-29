@@ -14,6 +14,8 @@ spring.datasource.password=postgres
 
 change password "postgress" to your pgAdmin password
 
+create a database postgres with name "elotechCrudProcess"
+
 #### Initialization
 
 Frontend and backend run separately, to use the entire application you need to start the backend and then start the frontend:
